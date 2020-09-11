@@ -33,6 +33,7 @@ public class EmployeeController {
     public ResultBean<Employee> list(Employee emp , int pageNumber , int pageSize){
         PageInfo<Employee> pageinfo = employeeSerivce.findEmpList( emp , pageNumber , pageSize );
         System.out.println("更新一");
+        System.out.println("分支");
         return ResultBean.success(pageinfo);
     }
     /**
