@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.why.myvhr.mapper.DepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.why.myvhr.beans.Department">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="parentId" jdbcType="INTEGER" property="parentid" />
+    <result column="depPath" jdbcType="VARCHAR" property="deppath" />
+    <result column="enabled" jdbcType="BOOLEAN" property="enabled" />
+    <result column="isParent" jdbcType="BOOLEAN" property="isparent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, parentId, depPath, enabled, isParent
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from department
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from department
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.why.myvhr.beans.Department" useGeneratedKeys="true">
+    insert into department (`name`, parentId, depPath, 
+      enabled, isParent)
+    values (#{name,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, #{deppath,jdbcType=VARCHAR}, 
+      #{enabled,jdbcType=BOOLEAN}, #{isparent,jdbcType=BOOLEAN})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.why.myvhr.beans.Department" useGeneratedKeys="true">
+    insert into department
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="parentid != null">
+        parentId,
+      </if>
+      <if test="deppath != null">
+        depPath,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="isparent != null">
+        isParent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="deppath != null">
+        #{deppath,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=BOOLEAN},
+      </if>
+      <if test="isparent != null">
+        #{isparent,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.why.myvhr.beans.Department">
+    update department
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        parentId = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="deppath != null">
+        depPath = #{deppath,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=BOOLEAN},
+      </if>
+      <if test="isparent != null">
+        isParent = #{isparent,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.why.myvhr.beans.Department">
+    update department
+    set `name` = #{name,jdbcType=VARCHAR},
+      parentId = #{parentid,jdbcType=INTEGER},
+      depPath = #{deppath,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=BOOLEAN},
+      isParent = #{isparent,jdbcType=BOOLEAN}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
